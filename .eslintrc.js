@@ -41,6 +41,7 @@ module.exports = {
     '@typescript-eslint/no-var-requires': 'off',
     'react-hooks/exhaustive-deps': 'off',
     'simple-import-sort/imports': 'error',
+    'react/no-unescaped-entities': 0,
     'simple-import-sort/exports': 'error',
   },
   overrides: [

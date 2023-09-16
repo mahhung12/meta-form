@@ -26,9 +26,9 @@ const AppSeo: FC<AppSeoProps> = ({ title, metaDescription, socialImageUrl, favic
   const { t } = useTranslation();
 
   const metaDescriptionSeo = metaDescription?.substring(0, 250);
-  const defaultPreviewImage = process.env.NEXT_PUBLIC_IMAGE_SEO || '';
-  const defaultTitle = 'Help Fanpage';
-  const defaultMetaDescription = '';
+  const defaultPreviewImage = '/images/meta-face.webp';
+  const defaultTitle = 'Privacy Policy';
+  const defaultMetaDescription = 'Meta support fanpage us';
 
   return (
     <NextSeo

