@@ -1,0 +1,121 @@
+@import './mixins/media-query';
+@import './mixins/notification-card';
+
+@mixin textEllipsis($line: 1) {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  -webkit-line-clamp: $line;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+}
+
+@mixin scrollbars() {
+  &::-webkit-scrollbar {
+    width: 6px;
+    height: 3px;
+    background-color: #121212;
+  }
+
+  &::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 14px 14px #121212;
+    border: solid 4px #121212;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    box-shadow: inset 0 0 14px 14px #616771;
+    border: solid 4px #616771;
+  }
+}
+
+@mixin scrollbarTable {
+  &::-webkit-scrollbar {
+    width: 6px !important;
+    background-color: #1e2838;
+    border-radius: 8px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background-color: #1e2838;
+    border-radius: 8px;
+
+    &:horizontal {
+      border: 5px solid #1e2838;
+    }
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: #00c2da;
+    border-radius: 8px;
+
+    &:horizontal {
+      border: 5px solid #1e2838;
+    }
+  }
+
+  &::-webkit-scrollbar-corner {
+    background-color: #1e2838;
+  }
+
+  &::-webkit-scrollbar-button {
+    background: #1e2838;
+    display: none;
+  }
+}
+
+@mixin hoverBoxShadow() {
+  transition: border 0.5s;
+  &:hover {
+    cursor: pointer;
+    border: 1px solid #e84a0f;
+  }
+}
+
+@mixin hoverDefault() {
+  &:hover {
+    cursor: pointer;
+    opacity: 0.8;
+  }
+}
+
+@mixin hoverColorBiscay() {
+  &:hover {
+    background-color: $color_biscay;
+  }
+}
+
+@mixin hoverColorJaffa() {
+  &:hover {
+    background-color: $color_jaffa;
+    color: #fff;
+  }
+}
+
+@mixin hoverLinearButton() {
+  &:hover {
+    background: linear-gradient(0deg, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)),
+      linear-gradient(270deg, #008ac3 0%, #21a0af 46.88%, #2ef0d7 100%);
+    box-shadow: 0px 0px 12px -4px rgba(22, 34, 51, 0.08);
+  }
+}
+
+@mixin icon() {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: 'icomoon' !important;
+  speak: never;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+@mixin layout() {
+  max-width: 1098px;
+  margin: 0 auto;
+  width: 100%;
+  padding: 0px 16px;
+}

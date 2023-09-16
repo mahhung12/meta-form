@@ -1,0 +1,84 @@
+html,
+body {
+  font-size: 14px;
+  background: var(--background);
+  @include scrollbars();
+
+  #root {
+    height: 100%;
+
+    .App {
+      height: 100%;
+    }
+  }
+}
+
+.app-content {
+  min-height: calc(100vh - 195px - 118px - 33px - 110px);
+  padding-bottom: 20px;
+
+  .scroll-to-top {
+    display: none;
+  }
+
+  .scroll-to-top {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+
+    img {
+      height: 24px;
+      width: 24px;
+    }
+  }
+}
+
+.container {
+  width: 100%;
+  max-width: $breakpoint_mega_desktop_max + 1;
+  // padding: 0 48px;
+
+  @media only screen and (max-width: $breakpoint_ultra_desktop_max) {
+    // padding: 0 48px;
+  }
+
+  @media only screen and (max-width: $breakpoint_tablet_max) {
+    padding: 10px;
+  }
+}
+
+.walletconnect-modal__mobile__toggle {
+  display: none !important;
+}
+
+.align-right {
+  text-align: right;
+}
+
+.align-center {
+  text-align: center !important;
+}
+
+.vertical-middle {
+  vertical-align: middle;
+}
+
+.ant-scrolling-effect {
+  width: 100% !important;
+}
+
+.ml-4px {
+  margin-left: 4px;
+}
+
+.w-full {
+  width: 100%;
+}
+
+.no-wrap {
+  white-space: nowrap;
+}

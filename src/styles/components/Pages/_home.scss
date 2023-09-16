@@ -1,0 +1,53 @@
+.blocking-page {
+  max-width: 750px;
+  margin: 0 auto;
+  height: 100vh;
+  width: 100%;
+
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+
+  @media (max-width: 768px) {
+    max-width: calc(100% - 48px);
+  }
+
+  .link-active {
+    padding: 20px;
+    width: 100%;
+    height: 60px;
+
+    border: none;
+    width: 100%;
+    background: rgb(37, 116, 234);
+    color: rgb(255, 255, 255);
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    &:hover {
+      opacity: 0.8;
+      cursor: pointer;
+    }
+
+    @media (max-width: 768px) {
+      height: 40px;
+      padding: 0;
+    }
+
+    button {
+      width: 100%;
+      height: 100%;
+      cursor: pointer;
+
+      background: none;
+      border: none;
+
+      text-align: center;
+      color: rgb(255, 255, 255);
+    }
+  }
+}

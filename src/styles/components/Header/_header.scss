@@ -1,0 +1,32 @@
+.ant-layout-header {
+  height: 80px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  background: unset;
+
+  .list-menu {
+    display: flex;
+    flex-flow: row nowrap;
+    gap: 8px;
+
+    .ant-btn-default {
+      background-color: unset;
+      border-color: unset;
+      box-shadow: none;
+      border: none;
+
+      color: #aeb5bd;
+      font-size: 18px;
+
+      &:hover {
+        color: unset;
+        border-color: unset;
+
+        color: rgb(16, 15, 15);
+      }
+    }
+  }
+}

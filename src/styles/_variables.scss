@@ -1,0 +1,95 @@
+// size screen responsive
+// Small devices (landscape phones, 576px and up)
+// Extra large devices (large desktops, 1200px and up)
+// Large devices (desktops, 992px and up)
+// Medium devices (tablets, 768px and up)
+
+$breakpoint_small_mobile_max: 321px;
+$breakpoint_mobile_md: 375px;
+$breakpoint_mobile_max: 575px;
+$breakpoint_tablet_max: 767px;
+$breakpoint_small_tablet_max: 1023px;
+$breakpoint_ultra_tablet_max: 1199px;
+$breakpoint_desktop_max: 991px;
+$breakpoint_large_desktop_max: 1279px;
+$breakpoint_xl_desktop_max: 1441px;
+$breakpoint_ultra_desktop_max: 1599px;
+$breakpoint_mega_desktop_max: 1919px;
+
+//color
+$color_white: #fff;
+$color_white_1: #f9f9f9;
+$color_sophia: #d1d1d1;
+$color_alto: #e0e0e0;
+
+$color_black: #000;
+$color_mark_bg: rgba(18, 18, 18, 0.9);
+$color_background: #0c0d10;
+$color_cod_gray: #121212;
+$color_mines_shaft: #232323;
+$color_mirage: #1b263a;
+$color_dashlio: #171f2b;
+$color_cod_gray: #121212;
+$color_mine_shaft: #333333;
+$color_cloud_burst: #21324d;
+$color_min_shar: #242424;
+$color_cod_gray: #191919;
+$color_mirage: #1a2230;
+$color_mirage_v3: #1e2838;
+
+$color_gray_2: #adadad;
+$color_gray_3: #878787;
+$color_gray_4: #d1d1d1;
+
+$color_red: #f40;
+$color_jaffa: #f6903d;
+
+$color_biscay: #21326a;
+$color_rhino: #324563;
+$color_tundora: #454545;
+
+$color_gray: #878787;
+$color_emerald: #52bd80;
+$color_boulder: #777;
+$color_blue_chill: #0e6e90;
+$color_silver_chalice: #adadad;
+
+$color_muzqer: #19e2d7;
+$color_java: #19e2d7;
+$color_egg_blue: #00c2da;
+$color_dodger_blue: #00b2ff;
+$color_eastern_blue: #229fa0;
+$color_metallic_seaweed: #197e94;
+$color_boulder: #787878;
+
+//home
+$colot_tropical_rail_forest: #006d56;
+$color_neon_green: #19e2d7;
+$background_nft_item: #232323;
+$color_nft_item_gray: #a2a28c;
+$color_bright_gray: #e9e9e9;
+$color_yankees_blue: #1d2b40;
+$color_chinese_black: #0f151d;
+$color_turqoise: #2dead2;
+
+body[theme='dark'] {
+  // common
+  --background-backdrop-filter: rgba(18, 18, 18, 0.72);
+  --background-input-disabled: #303030;
+  --background-unsaved-title: #ffffff;
+  --color-text-red: #e84a0f;
+  --color-sub-text: #777777;
+  --color-placeholder-text: #777777;
+  --background-dark: #232323;
+}
+
+body[theme='light'] {
+  // common
+  --background-backdrop-filter: rgba(255, 255, 255, 0.72);
+  --background-input-disabled: #d1d1d1;
+  --background-unsaved-title: #121212;
+  --color-text-red: #e84a0f;
+  --color-sub-text: #878787;
+  --color-placeholder-text: #878787;
+  --background-dark: #f7f7f7;
+}

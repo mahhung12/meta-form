@@ -1,0 +1,112 @@
+@mixin notificationCard() {
+  .notification-card {
+    background-color: linear-gradient(180deg, #0f151d 0%, #1a2230 73.96%);
+    border-radius: 5px;
+    width: 100%;
+
+    .title {
+      margin-bottom: 12px;
+      font-weight: 500;
+      font-size: 14px;
+      line-height: 150%;
+      color: $color_white;
+    }
+
+    .infinite-scroll-component {
+      @include scrollbars();
+      overflow: auto;
+      overflow-x: hidden !important;
+      max-height: 350px;
+      padding-right: 10px;
+      margin-right: -10px;
+
+      &::-webkit-scrollbar {
+        border-radius: 8px;
+
+        &-track,
+        &-thumb {
+          border-radius: 8px;
+        }
+      }
+
+      .wrapper {
+        padding: 20px 0 10px 0;
+
+        &:first-of-type {
+          padding-top: 18px;
+        }
+
+        &:not(:first-of-type) {
+          border-top: 1px solid $color_rhino;
+        }
+
+        .group {
+          cursor: pointer;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+
+          .content {
+            display: flex;
+            align-items: center;
+            margin-right: 20px;
+
+            .text-wrapper {
+              .ant-typography {
+                font-weight: 400;
+                font-size: 14px;
+                line-height: 150%;
+                color: #ffffff;
+
+                > span {
+                  color: #19e2d7;
+                }
+              }
+
+              .sub-text {
+                margin-top: 2px;
+                font-weight: 600;
+                font-size: 12px;
+                line-height: 15px;
+                color: #878787;
+              }
+            }
+          }
+
+          .effect {
+            .dot {
+              width: 8px;
+              height: 8px;
+              border-radius: 50px;
+              background: #19e2d7;
+            }
+          }
+        }
+      }
+    }
+
+    .notification-empty-text {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-top: 76px;
+      margin-bottom: 65px;
+
+      > svg {
+        margin-bottom: 16px;
+      }
+
+      > span {
+        font-weight: 700;
+        font-size: 14px;
+        line-height: 150%;
+        color: #878787;
+        margin-bottom: 4px;
+
+        ~ span {
+          font-weight: 500;
+        }
+      }
+    }
+  }
+}
