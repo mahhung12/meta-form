@@ -155,6 +155,7 @@ const ConfirmPage = () => {
 
       <div className='card'>
         <Steps
+          responsive={false}
           progressDot
           current={3}
           items={[{ description: 'Select Asset' }, { description: 'Select the Issue' }, { description: 'Get help' }]}

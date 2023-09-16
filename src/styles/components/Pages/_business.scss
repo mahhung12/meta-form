@@ -91,6 +91,11 @@
         color: rgb(48, 132, 244) !important;
         font-size: 13px;
       }
+
+      @media screen and (max-width: 768px) {
+        flex-flow: row nowrap !important;
+        margin-inline-start: -25px !important;
+      }
     }
 
     .title {
